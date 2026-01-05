@@ -10,23 +10,109 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         .form-shadow { box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
+        /* Reset Dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif; /* Menggunakan font yang bersih mirip di foto */
+}
+
+/* Container Navigasi Utama */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 80px; /* Jarak samping yang lebar sesuai foto */
+    background-color: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Bagian Kiri (Logo & Menu) */
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 50px; /* Jarak antara logo dan deretan menu */
+}
+
+/* Gaya Logo */
+.logo a {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0000FF; /* Warna biru sesuai gambar terakhir */
+    text-decoration: none;
+    letter-spacing: -1px;
+}
+
+/* Deretan Menu Navigasi */
+.nav-menu {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: #4A5568; /* Warna abu-abu gelap yang elegan */
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    text-transform: capitalize;
+}
+
+.nav-menu a:hover {
+    color: #0D9488; /* Warna teal saat di-hover sesuai brand KOSTKU */
+}
+
+/* Bagian Kanan (Tombol) */
+.nav-right {
+    display: flex;
+    align-items: center;
+}
+
+/* Gaya Tombol Pusat Bantuan (Outline) */
+.btn-outline {
+    text-decoration: none;
+    color: #0D9488;
+    border: 1.5px solid #0D9488;
+    padding: 8px 20px;
+    border-radius: 25px; /* Lonjong sesuai gambar */
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+    background-color: #0D9488;
+    color: #ffffff;
+}
+
+/* Responsif untuk layar kecil/HP */
+@media (max-width: 768px) {
+    nav {
+        padding: 15px 20px;
+    }
+    .nav-menu {
+        display: none; /* Sembunyikan menu di mobile atau gunakan menu burger */
+    }
+}
     </style>
 </head>
 <body class="bg-[#F8FAFC]">
 
-   <nav>
+  <nav>
         <div class="nav-left">
             <div class="logo"><a href="index.html">KOSTKU</a></div>
             <div class="nav-menu">
                 <a href="cari-kost.html">Cari Kost</a>
                 <a href="about.html">About</a>
                 <a href="blog.html">blog</a>
-               
             </div>
         </div>
         <div class="nav-right">
             <a href="pusatbantuan.html" class="btn-outline">Pusat Bantuan</a>
-            
         </div>
     </nav>
 
