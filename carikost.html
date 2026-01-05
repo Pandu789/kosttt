@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KostKu - Platform Cari Kost Terlengkap</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .filter-shadow { box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        .active-page { background: #0d9488; color: white; }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-slate-800">
+<nav>
+        <div class="nav-left">
+            <div class="logo">KOSTKU</div>
+            <div class="nav-menu">
+                <a href="cari-kost.html">Cari Kost</a>
+                <a href="about.html">About</a>
+                <a href="blog.html">blog</a>
+               
+            </div>
+        </div>
+        <div class="nav-right">
+            <a href="pusatbantuan.html" class="btn-outline">Pusat Bantuan</a>
+            
+        </div>
+    </nav>
+
+    <header class="bg-white py-12 px-6 md:px-16 border-b">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-black mb-6 leading-tight">Cari Kost Nyaman, Semudah <br><span class="text-teal-600">Pesan Makanan</span></h2>
+            <div class="bg-white p-2 rounded-2xl shadow-2xl border flex flex-col md:flex-row gap-2">
+                <input type="text" id="keywordInput" onkeyup="applyFilters()" placeholder="Lokasi, nama kost, atau kampus..." class="flex-1 p-4 outline-none">
+                <button onclick="applyFilters()" class="bg-teal-600 text-white px-10 py-4 rounded-xl font-bold hover:bg-teal-700">Cari Sekarang</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="py-10 px-6 md:px-16 max-w-7xl mx-auto flex flex-col lg:flex-row gap-10">
+        <aside class="lg:w-1/4">
+            <div class="bg-white rounded-3xl p-6 filter-shadow sticky top-24 border border-slate-100">
+                <h4 class="font-bold text-lg mb-6">Filter Properti</h4>
+                <div class="space-y-6">
+                    <div>
+                        <label class="text-[11px] font-bold text-slate-400 uppercase">Tipe Kost</label>
+                        <select id="typeFilter" onchange="applyFilters()" class="w-full mt-2 p-3 bg-slate-50 border rounded-xl text-sm outline-none">
+                            <option value="all">Semua Tipe</option>
+                            <option value="Putra">Putra</option>
+                            <option value="Putri">Putri</option>
+                            <option value="Campur">Campur</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="text-[11px] font-bold text-slate-400 uppercase flex justify-between">
+                            Harga Maksimum
+                            <span id="priceValue" class="text-teal-600">2.5 Jt</span>
+                        </label>
+                        <input type="range" id="priceFilter" min="800000" max="2500000" step="100000" value="2500000" 
+                            oninput="updatePriceLabel(this.value)" onchange="applyFilters()" 
+                            class="w-full h-2 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-teal-600 mt-4">
+                    </div>
+
+                    <div>
+                        <label class="text-[11px] font-bold text-slate-400 uppercase block mb-3">Fasilitas</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center text-sm cursor-pointer"><input type="checkbox" value="wifi" onchange="applyFilters()" class="facility-check mr-3 accent-teal-600"> WiFi</label>
+                            <label class="flex items-center text-sm cursor-pointer"><input type="checkbox" value="mandi_dalam" onchange="applyFilters()" class="facility-check mr-3 accent-teal-600"> Kamar Mandi Dalam</label>
+                        </div>
+                    </div>
+                    <button onclick="resetFilters()" class="w-full text-xs text-slate-400 font-bold uppercase hover:text-red-500">Reset Filter</button>
+                </div>
+            </div>
+        </aside>
+
+        <div class="lg:w-3/4">
+            <div id="kostGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"></div>
+            <div id="pagination" class="flex justify-center mt-12 space-x-2"></div>
+        </div>
+    </main>
+
+    <script>
+        const allKost = [];
+        const areas = ["Jakarta", "Bandung", "Jogja", "Malang", "Depok"];
+        const types = ["Putra", "Putri", "Campur"];
+        
+        for(let i = 1; i <= 24; i++) {
+            allKost.push({
+                id: i,
+                nama: "Kost " + ["Mawar", "Cempaka", "Executive", "Pondok"][i%4] + " " + i,
+                tipe: types[i % types.length],
+                harga: Math.floor(Math.random() * (2500000 - 800000)) + 800000,
+                lokasi: areas[i % areas.length],
+                wifi: Math.random() > 0.3,
+                mandi_dalam: Math.random() > 0.5,
+                image: `https://picsum.photos/id/${i+20}/600/400`
+            });
+        }
+
+        let currentPage = 1;
+        let filteredData = [...allKost];
+        const itemsPerPage = 6;
+
+        function updatePriceLabel(val) {
+            document.getElementById('priceValue').innerText = (val / 1000000).toFixed(1) + " Jt";
+        }
+
+        function applyFilters() {
+            const keyword = document.getElementById('keywordInput').value.toLowerCase();
+            const type = document.getElementById('typeFilter').value;
+            const maxPrice = parseInt(document.getElementById('priceFilter').value);
+
+            filteredData = allKost.filter(k => {
+                return (k.nama.toLowerCase().includes(keyword) || k.lokasi.toLowerCase().includes(keyword)) &&
+                       (type === 'all' || k.tipe === type) &&
+                       (k.harga <= maxPrice);
+            });
+            currentPage = 1;
+            render();
+        }
+
+        function render() {
+            const grid = document.getElementById('kostGrid');
+            grid.innerHTML = "";
+            const start = (currentPage - 1) * itemsPerPage;
+            const paginated = filteredData.slice(start, start + itemsPerPage);
+
+            paginated.forEach(k => {
+                grid.innerHTML += `
+                    <div onclick="goToDetail(${k.id})" class="bg-white rounded-3xl overflow-hidden border border-slate-100 hover:shadow-2xl transition-all duration-500 cursor-pointer group">
+                        <img src="${k.image}" class="w-full h-48 object-cover group-hover:scale-105 transition duration-500">
+                        <div class="p-6">
+                            <span class="text-[10px] font-bold uppercase text-teal-600 bg-teal-50 px-2 py-1 rounded-lg">${k.tipe}</span>
+                            <h4 class="font-bold text-lg mt-2">${k.nama}</h4>
+                            <p class="text-xs text-slate-400 mb-4"><i class="fa fa-map-marker-alt"></i> ${k.lokasi}</p>
+                            <p class="text-teal-600 font-black text-lg">Rp ${(k.harga/1000).toFixed(0)}rb<span class="text-[10px] text-slate-400">/bln</span></p>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        // FUNGSI PINDAH HALAMAN
+        function goToDetail(id) {
+            window.location.href = `kostdetail.html?id=${id}`;
+        }
+
+        render();
+    </script>
+</body>
+</html>

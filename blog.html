@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog KOSTKU - Inspirasi Anak Kost</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .category-active { color: #0D9488; font-weight: 800; }
+        .category-active span { transform: scale(1.5); }
+    </style>
+</head>
+<body class="bg-[#F8FAFC] text-slate-800">
+
+    <nav class="bg-white py-4 px-6 md:px-16 flex justify-between items-center sticky top-0 z-50 border-b border-slate-100">
+        <div class="flex items-center space-x-10">
+            <h1 class="text-2xl font-bold text-[#0D9488] tracking-tight cursor-pointer">KOSTKU</h1>
+            <div class="hidden md:flex space-x-6 font-medium text-slate-600 text-sm">
+                <a href="#" class="hover:text-[#0D9488]">Cari Kost</a>
+                <a href="#" class="hover:text-[#0D9488]">Kost Campur</a>
+                <a href="#" class="hover:text-[#0D9488]">Kost Putri</a>
+                <a href="#" class="hover:text-[#0D9488]">Promo</a>
+            </div>
+        </div>
+        <div class="flex items-center space-x-3">
+            <button class="px-5 py-2 text-sm font-semibold text-[#0D9488] border border-[#0D9488] rounded-lg">Pusat Bantuan</button>
+            <button class="px-5 py-2 bg-[#0D9488] text-white rounded-lg text-sm font-bold shadow-lg shadow-teal-100">Login/Daftar</button>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-6 md:px-16 py-10">
+        <header class="mb-10 max-w-2xl">
+            <h2 class="text-3xl md:text-4xl font-extrabold leading-tight text-slate-900">
+                Blog KOSTKU: Tips & Inspirasi Terbaru.
+            </h2>
+        </header>
+
+        <div class="flex flex-col lg:flex-row gap-12">
+            
+            <div class="lg:w-2/3">
+                <div id="articleGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    </div>
+            </div>
+
+            <aside class="lg:w-1/3 space-y-8">
+                <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm">
+                    <h5 class="font-bold text-slate-900 mb-5">Kategori Blog</h5>
+                    <ul class="space-y-4" id="categoryList">
+                        <li onclick="filterArticles('Semua')" class="category-item flex items-center text-sm font-medium text-slate-600 hover:text-teal-600 cursor-pointer transition-all category-active" data-category="Semua">
+                            <span class="w-2 h-2 bg-teal-500 rounded-full mr-3 transition-transform"></span> Semua Kategori
+                        </li>
+                        <li onclick="filterArticles('Tips Kost')" class="category-item flex items-center text-sm font-medium text-slate-600 hover:text-teal-600 cursor-pointer transition-all" data-category="Tips Kost">
+                            <span class="w-2 h-2 bg-teal-500 rounded-full mr-3 transition-transform"></span> Tips Kost
+                        </li>
+                        <li onclick="filterArticles('Life Hacks')" class="category-item flex items-center text-sm font-medium text-slate-600 hover:text-teal-600 cursor-pointer transition-all" data-category="Life Hacks">
+                            <span class="w-2 h-2 bg-teal-500 rounded-full mr-3 transition-transform"></span> Life Hacks
+                        </li>
+                        <li onclick="filterArticles('Berita Properti')" class="category-item flex items-center text-sm font-medium text-slate-600 hover:text-teal-600 cursor-pointer transition-all" data-category="Berita Properti">
+                            <span class="w-2 h-2 bg-teal-500 rounded-full mr-3 transition-transform"></span> Berita Properti
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm">
+                    <h5 class="font-bold text-slate-900 mb-2">Newsletter</h5>
+                    <input type="email" placeholder="Email Anda" class="w-full px-4 py-3 bg-slate-50 border rounded-xl mb-3 text-sm outline-none focus:ring-2 focus:ring-teal-500">
+                    <button class="w-full bg-[#0D9488] text-white py-3 rounded-xl font-bold text-sm">Langganan</button>
+                </div>
+            </aside>
+        </div>
+    </main>
+<script>
+    // DATA ARTIKEL
+    const articles = [
+        { title: "Cara Menata Kamar Sempit Jadi Aesthetic", date: "19 Nov 2023", category: "Tips Kost", author: "Jarren Moory", img: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400" },
+        { title: "Life Hacks: Masak Nasi Tanpa Magiccom", date: "21 Nov 2023", category: "Life Hacks", author: "Aanien Monity", img: "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400" },
+        { title: "Update Kebijakan Kost di Indonesia 2026", date: "16 Nov 2023", category: "Berita Properti", author: "James Mamitar", img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400" },
+        { title: "5 Rekomendasi Kost Dekat Kampus Jakarta", date: "11 Nov 2023", category: "Tips Kost", author: "Jarren Moory", img: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=400" },
+        { title: "Trik Menghemat Listrik AC di Kost", date: "05 Nov 2023", category: "Life Hacks", author: "Susi Riyanti", img: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?w=400" }
+    ];
+
+    function filterArticles(category) {
+        const grid = document.getElementById('articleGrid');
+        const categoryItems = document.querySelectorAll('.category-item');
+        
+        // 1. Update UI Sidebar (Active State)
+        categoryItems.forEach(item => {
+            if(item.getAttribute('data-category') === category) {
+                item.classList.add('category-active');
+            } else {
+                item.classList.remove('category-active');
+            }
+        });
+
+        // 2. Filter Data
+        const filtered = category === 'Semua' ? articles : articles.filter(a => a.category === category);
+
+        // 3. Render ke Grid dengan Link ke blogdetail.html
+        grid.innerHTML = "";
+        if(filtered.length === 0) {
+            grid.innerHTML = "<p class='text-slate-400 italic'>Belum ada artikel di kategori ini.</p>";
+            return;
+        }
+
+        filtered.forEach(a => {
+            grid.innerHTML += `
+                <a href="blogdetail.html" class="block group cursor-pointer animate-fade-in">
+                    <article>
+                        <div class="rounded-2xl overflow-hidden mb-4 relative">
+                            <span class="absolute top-3 left-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold text-teal-600 z-10">${a.category}</span>
+                            <img src="${a.img}" class="w-full h-48 object-cover group-hover:scale-110 transition duration-500">
+                        </div>
+                        <h4 class="font-bold text-slate-900 mb-2 group-hover:text-teal-600 transition-colors">${a.title}</h4>
+                        <div class="flex items-center justify-between">
+                            <p class="text-[11px] text-slate-400 font-medium">${a.date}</p>
+                            <span class="text-[10px] font-bold text-slate-500">Oleh: ${a.author}</span>
+                        </div>
+                    </article>
+                </a>
+            `;
+        });
+    }
+
+    // Jalankan saat pertama kali dibuka
+    filterArticles('Semua');
+</script>
+
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+    </style>
+</body>
+</html>

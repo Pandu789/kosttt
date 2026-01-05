@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Kost - KostKu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #f8fafc; 
+        }
+        .form-card {
+            transition: all 0.3s ease;
+        }
+        .form-card:focus-within {
+            border-color: #0d9488;
+            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.08);
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+<nav>
+        <div class="nav-left">
+            <div class="logo">KOSTKU</div>
+            <div class="nav-menu">
+                <a href="cari-kost.html">Cari Kost</a>
+                <a href="about.html">About</a>
+                <a href="blog.html">blog</a>
+               
+            </div>
+        </div>
+        <div class="nav-right">
+            <a href="pusatbantuan.html" class="btn-outline">Pusat Bantuan</a>
+            
+        </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <form id="bookingForm" onsubmit="kirimWhatsApp(event)">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <div class="lg:col-span-2 space-y-6">
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 form-card">
+                        <h2 class="text-lg font-bold mb-5 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-teal-50 text-teal-600 rounded-full flex items-center justify-center text-sm"><i class="fa-regular fa-calendar"></i></span>
+                            Informasi Sewa
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Tanggal Masuk</label>
+                                <input type="date" id="tanggalMasuk" class="w-full p-3 bg-slate-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-500 outline-none transition" required>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Durasi Sewa</label>
+                                <select id="durasiSewa" class="w-full p-3 bg-slate-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-500 outline-none transition" onchange="hitungTotal()">
+                                    <option value="1">1 Bulan</option>
+                                    <option value="3">3 Bulan (Diskon 5%)</option>
+                                    <option value="6">6 Bulan (Diskon 10%)</option>
+                                    <option value="12">1 Tahun (Gratis 1 Bulan)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 form-card">
+                        <h2 class="text-lg font-bold mb-5 flex items-center gap-2">
+                            <span class="w-8 h-8 bg-teal-50 text-teal-600 rounded-full flex items-center justify-center text-sm"><i class="fa-regular fa-user"></i></span>
+                            Data Penyewa
+                        </h2>
+                        <div class="space-y-5">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Nama Lengkap (Sesuai KTP)</label>
+                                <input type="text" id="namaLengkap" placeholder="Masukkan nama lengkap Anda" class="w-full p-3 bg-slate-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-500 outline-none transition" required>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Nomor WhatsApp</label>
+                                    <input type="tel" id="noHP" placeholder="Contoh: 08123456789" class="w-full p-3 bg-slate-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-500 outline-none transition" required>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Jenis Kelamin</label>
+                                    <select id="jenisKelamin" class="w-full p-3 bg-slate-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-teal-500 outline-none transition">
+                                        <option value="Pria">Pria</option>
+                                        <option value="Wanita">Wanita</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Pekerjaan / Status</label>
+                                <div class="flex gap-6 mt-3">
+                                    <label class="flex items-center gap-2 cursor-pointer group">
+                                        <input type="radio" name="status" value="Mahasiswa" class="w-4 h-4 accent-teal-600" checked> 
+                                        <span class="text-sm font-medium text-gray-600 group-hover:text-teal-600">Mahasiswa</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer group">
+                                        <input type="radio" name="status" value="Karyawan" class="w-4 h-4 accent-teal-600"> 
+                                        <span class="text-sm font-medium text-gray-600 group-hover:text-teal-600">Karyawan</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 form-card text-center">
+                        <h2 class="text-lg font-bold mb-2 text-left flex items-center gap-2">
+                            <span class="w-8 h-8 bg-teal-50 text-teal-600 rounded-full flex items-center justify-center text-sm"><i class="fa-solid fa-id-card"></i></span>
+                            Verifikasi Identitas
+                        </h2>
+                        <p class="text-xs text-gray-400 text-left mb-6 ml-10">Unggah foto KTP untuk keamanan proses check-in.</p>
+                        <div class="border-2 border-dashed border-slate-200 rounded-2xl p-8 hover:bg-teal-50/30 hover:border-teal-300 cursor-pointer transition-all group">
+                            <i class="fa-solid fa-cloud-arrow-up text-4xl text-slate-300 group-hover:text-teal-500 mb-3 block"></i>
+                            <p class="text-sm font-bold text-slate-500">Klik untuk upload foto KTP</p>
+                            <p class="text-[10px] text-slate-400 mt-1">Format: JPG, PNG (Max 2MB)</p>
+                            <input type="file" id="fileKTP" class="hidden">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="lg:col-span-1">
+                    <div class="bg-white p-6 rounded-[2rem] shadow-xl shadow-slate-200/50 border border-slate-100 sticky top-24">
+                        <h3 class="font-bold text-slate-800 text-lg mb-6">Rincian Pembayaran</h3>
+                        
+                        <div class="flex gap-4 mb-6 pb-6 border-b border-slate-100">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1522771753035-1a5b6563f3a9?auto=format&fit=crop&w=200&q=80" class="w-20 h-20 object-cover rounded-2xl shadow-sm">
+                                <span class="absolute -top-2 -right-2 bg-teal-500 text-white text-[8px] font-bold px-2 py-1 rounded-lg">PROMO</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-slate-800 leading-tight">Kost Executive Lowokwaru</h4>
+                                <p class="text-[10px] text-slate-400 mt-1 font-medium"><i class="fa-solid fa-map-marker-alt"></i> Malang, Jawa Timur</p>
+                                <div class="flex gap-1 mt-2">
+                                    <span class="text-[8px] bg-slate-100 px-2 py-1 rounded-md text-slate-500 font-bold uppercase">WiFi</span>
+                                    <span class="text-[8px] bg-slate-100 px-2 py-1 rounded-md text-slate-500 font-bold uppercase">AC</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4 text-sm mb-8">
+                            <div class="flex justify-between text-slate-500">
+                                <span>Harga Sewa</span>
+                                <span class="font-bold text-slate-700">Rp 1.500.000</span>
+                            </div>
+                            <div class="flex justify-between text-slate-500">
+                                <span>Durasi</span>
+                                <span class="font-bold text-slate-700" id="labelDurasi">1 Bulan</span>
+                            </div>
+                            <div class="flex justify-between text-teal-600 font-bold hidden" id="diskonRow">
+                                <span>Diskon Sewa</span>
+                                <span id="labelDiskon">- Rp 0</span>
+                            </div>
+                            <div class="flex justify-between text-slate-500">
+                                <span>Biaya Layanan</span>
+                                <span class="font-bold text-slate-700">Rp 5.000</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-50 p-4 rounded-2xl mb-8">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Akhir</span>
+                                <span class="font-extrabold text-2xl text-teal-600" id="totalHarga">Rp 1.505.000</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-[#149B8E] hover:bg-teal-700 text-white font-extrabold py-4 rounded-2xl transition duration-300 shadow-lg shadow-teal-100 flex items-center justify-center gap-2">
+                            <span>Ajukan Sewa Sekarang</span>
+                            <i class="fa-solid fa-arrow-right text-sm"></i>
+                        </button>
+                        
+                        <div class="mt-4 flex items-center justify-center gap-2 text-slate-400">
+                            <i class="fa-solid fa-shield-check text-teal-500"></i>
+                            <span class="text-[10px] font-medium italic">Pembayaran dijamin aman & terenkripsi</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const hargaPerBulan = 1500000;
+        const biayaLayanan = 5000;
+
+        // Fungsi Update Real-time Harga
+        function hitungTotal() {
+            const durasi = parseInt(document.getElementById('durasiSewa').value);
+            let totalSewa = hargaPerBulan * durasi;
+            let diskon = 0;
+
+            // Logika Diskon
+            if (durasi === 3) {
+                diskon = totalSewa * 0.05; // 5%
+            } else if (durasi === 6) {
+                diskon = totalSewa * 0.10; // 10%
+            } else if (durasi === 12) {
+                diskon = hargaPerBulan; // Gratis 1 bulan sewa
+            }
+
+            const grandTotal = totalSewa - diskon + biayaLayanan;
+
+            // Update UI
+            document.getElementById('labelDurasi').innerText = durasi + (durasi === 12 ? ' (1 Tahun)' : ' Bulan');
+            
+            const diskonRow = document.getElementById('diskonRow');
+            if (diskon > 0) {
+                diskonRow.classList.remove('hidden');
+                document.getElementById('labelDiskon').innerText = '- Rp ' + diskon.toLocaleString('id-ID');
+            } else {
+                diskonRow.classList.add('hidden');
+            }
+
+            document.getElementById('totalHarga').innerText = 'Rp ' + grandTotal.toLocaleString('id-ID');
+        }
+
+        // Fungsi Kirim ke WhatsApp
+        function kirimWhatsApp(event) {
+            event.preventDefault();
+
+            // 1. Ambil Data
+            const nama = document.getElementById('namaLengkap').value;
+            const noHP = document.getElementById('noHP').value;
+            const tanggal = document.getElementById('tanggalMasuk').value;
+            const selectDurasi = document.getElementById('durasiSewa');
+            const teksDurasi = selectDurasi.options[selectDurasi.selectedIndex].text;
+            const jk = document.getElementById('jenisKelamin').value;
+            const status = document.querySelector('input[name="status"]:checked').value;
+            const totalBayar = document.getElementById('totalHarga').innerText;
+
+            // 2. Konfigurasi Nomor WhatsApp (GANTI INI)
+            const nomorOwner = "628123456789"; 
+
+            // 3. Susun Pesan
+            const pesan = 
+                `*BOOKING KOST BARU - KOSTKU*%0A` +
+                `----------------------------------%0A` +
+                `*👤 DATA PENYEWA*%0A` +
+                `• Nama : ${nama}%0A` +
+                `• No. WA : ${noHP}%0A` +
+                `• Gender : ${jk}%0A` +
+                `• Status : ${status}%0A%0A` +
+                `*🏠 DETAIL SEWA*%0A` +
+                `• Kost : Kost Executive Lowokwaru%0A` +
+                `• Check-in : ${tanggal}%0A` +
+                `• Durasi : ${teksDurasi}%0A%0A` +
+                `*💰 PEMBAYARAN*%0A` +
+                `• *Total : ${totalBayar}*%0A` +
+                `----------------------------------%0A` +
+                `_Pesan dikirim melalui Form KostKu Online_`;
+
+            // 4. Buka WhatsApp
+            const url = `https://api.whatsapp.com/send?phone=${nomorOwner}&text=${pesan}`;
+            window.open(url, '_blank');
+        }
+
+        // Jalankan kalkulasi saat halaman pertama dimuat
+        window.onload = hitungTotal;
+    </script>
+</body>
+</html>

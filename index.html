@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KOSTKU - Cari Kost Nyaman</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- RESET & BASE STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: #F8FAFC;
+            color: #111827;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; transition: 0.3s; }
+        button { cursor: pointer; border: none; transition: 0.3s; outline: none; }
+        ul { list-style: none; }
+
+        /* --- NAVBAR --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 3rem; }
+        .logo { color: #149B8E; font-size: 1.5rem; font-weight: 800; }
+        .nav-menu { display: flex; gap: 2rem; }
+        .nav-menu a { color: #4B5563; font-size: 0.875rem; font-weight: 600; }
+        .nav-menu a:hover { color: #149B8E; }
+
+        .nav-right { display: flex; gap: 1rem; }
+        .btn-outline {
+            padding: 0.6rem 1.25rem;
+            border: 1px solid #149B8E;
+            color: #149B8E;
+            border-radius: 999px;
+            background: transparent;
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+        .btn-primary {
+            padding: 0.6rem 1.25rem;
+            background: #149B8E;
+            color: white;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            box-shadow: 0 4px 12px rgba(20, 155, 142, 0.2);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            display: flex;
+            padding: 4rem 5%;
+            background: white;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .hero-content { flex: 1; }
+        .hero-title { font-size: 3.2rem; font-weight: 800; line-height: 1.2; margin-bottom: 1.5rem; color: #111827; }
+        .hero-subtitle { color: #6B7280; font-size: 1.125rem; margin-bottom: 3rem; max-width: 480px; }
+
+        .categories { display: flex; gap: 2.5rem; margin-bottom: 3rem; }
+        .cat-item { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; cursor: pointer; }
+        .cat-icon {
+            width: 3.5rem; height: 3.5rem; background: #F9FAFB;
+            border: 1px solid #F3F4F6; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; color: #9CA3AF;
+            transition: 0.3s;
+        }
+        .cat-item:hover .cat-icon { border-color: #149B8E; color: #149B8E; background: white; transform: translateY(-3px); }
+        .cat-item span { font-size: 11px; font-weight: 700; color: #6B7280; }
+
+        .search-bar {
+            display: flex; background: white; padding: 0.5rem;
+            border-radius: 1.25rem; box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            border: 1px solid #F3F4F6; max-width: 650px;
+        }
+        .search-field { flex: 1; padding: 0.5rem 1.5rem; border-right: 1px solid #F3F4F6; }
+        .search-field:last-of-type { border-right: none; }
+        .search-field label { display: block; font-size: 10px; font-weight: 800; color: #9CA3AF; text-transform: uppercase; margin-bottom: 4px; }
+        .search-field input { border: none; outline: none; width: 100%; font-weight: 600; color: #374151; font-size: 0.9rem; }
+        .btn-search { background: #149B8E; color: white; padding: 1rem 2rem; border-radius: 1rem; font-weight: 700; margin-left: 0.5rem; }
+
+        .hero-image { flex: 1; position: relative; }
+        .hero-image img { width: 100%; height: 500px; object-fit: cover; border-radius: 3rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); }
+        .badge-hero {
+            position: absolute; top: 1.5rem; right: 1.5rem;
+            background: #EF4444; color: white; padding: 0.5rem 1rem;
+            border-radius: 0.75rem; font-size: 11px; font-weight: 800;
+        }
+
+        /* --- RECOMMENDATION --- */
+        .section { padding: 5rem 5%; }
+        .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; }
+        .section-header h3 { font-size: 1.75rem; font-weight: 800; }
+        .section-header a { color: #149B8E; font-weight: 700; font-size: 0.9rem; }
+
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .card { background: white; border-radius: 2rem; overflow: hidden; transition: 0.4s; box-shadow: 0 4px 20px rgba(0,0,0,0.03); border: 1px solid transparent; }
+        .card:hover { transform: translateY(-10px); border-color: #149B8E33; box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+        .card-img { height: 240px; position: relative; overflow: hidden; }
+        .card-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .card:hover .card-img img { transform: scale(1.1); }
+        .card-tag { position: absolute; top: 1rem; right: 1rem; padding: 0.4rem 0.8rem; border-radius: 1rem; font-size: 10px; font-weight: 800; color: white; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); }
+        .tag-green { background: #149B8E; }
+        .tag-red { background: #F87171; }
+        
+        .card-content { padding: 1.5rem; }
+        .card-content h4 { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .card-content p { font-size: 0.8rem; color: #9CA3AF; margin-bottom: 1.5rem; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #F3F4F6; pt: 1.5rem; padding-top: 1rem; }
+        .price { color: #149B8E; font-size: 1.25rem; font-weight: 800; }
+        .price span { font-size: 0.75rem; font-weight: 400; color: #9CA3AF; }
+
+        /* --- FEATURES --- */
+        .features-section { background: #ECFDF5; padding: 5rem 5%; border-radius: 4rem 4rem 0 0; }
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; align-items: center; }
+        .feat-item { text-align: left; }
+        .feat-icon { width: 3rem; height: 3rem; background: white; border-radius: 1rem; display: flex; align-items: center; justify-content: center; color: #149B8E; margin-bottom: 1.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+        .feat-item h5 { font-weight: 800; margin-bottom: 0.5rem; }
+        .feat-item p { font-size: 0.75rem; color: #6B7280; line-height: 1.6; }
+
+        .app-download { background: white; padding: 1.5rem; border-radius: 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .app-info h6 { font-size: 10px; color: #9CA3AF; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+        .app-info p { color: #149B8E; font-weight: 800; font-size: 1.25rem; }
+
+        /* --- TESTIMONIALS --- */
+        .testimonials { background: white; text-align: center; padding: 6rem 5%; }
+        .testimonials h3 { font-size: 2rem; font-weight: 800; margin-bottom: 1rem; }
+        .testimonials > p { color: #6B7280; margin-bottom: 4rem; }
+
+        .testi-card { background: #F8FAFC; padding: 2.5rem; border-radius: 2.5rem; text-align: left; position: relative; border: 1px solid #F1F5F9; }
+        .user-info { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+        .user-info img { width: 3.5rem; height: 3.5rem; border-radius: 50%; object-fit: cover; border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .user-info h5 { font-size: 0.9rem; font-weight: 800; }
+        .user-info p { font-size: 0.7rem; color: #149B8E; font-weight: 700; text-transform: uppercase; }
+        .testi-text { font-size: 0.875rem; color: #4B5563; font-style: italic; line-height: 1.7; margin-bottom: 1.5rem; }
+        .stars { color: #FBBF24; font-size: 0.75rem; }
+
+        /* --- CTA BANNER --- */
+        .cta-container { padding: 0 5% 5rem; }
+        .cta-banner {
+            background: #149B8E; border-radius: 3.5rem; padding: 5rem; color: white;
+            display: flex; justify-content: space-between; align-items: center;
+            position: relative; overflow: hidden; box-shadow: 0 30px 60px -12px rgba(20, 155, 142, 0.3);
+        }
+        .cta-banner::before { content: ""; position: absolute; width: 300px; height: 300px; background: rgba(255,255,255,0.1); border-radius: 50%; top: -150px; right: -50px; }
+        .cta-banner::after { content: ""; position: absolute; width: 200px; height: 200px; background: rgba(0,0,0,0.1); border-radius: 50%; bottom: -100px; left: -50px; }
+        
+        .cta-content { flex: 1; position: relative; z-index: 2; }
+        .cta-content h3 { font-size: 2.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 1.5rem; }
+        .cta-content p { font-size: 1.1rem; opacity: 0.9; max-width: 550px; }
+        .cta-btns { display: flex; gap: 1.5rem; position: relative; z-index: 2; }
+        .btn-white { padding: 1.2rem 2rem; background: white; color: #149B8E; border-radius: 1.25rem; font-weight: 800; font-size: 0.9rem; }
+        .btn-trans { padding: 1.2rem 2rem; background: rgba(255,255,255,0.1); color: white; border-radius: 1.25rem; font-weight: 800; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.3); }
+
+        /* --- FOOTER --- */
+        footer { background: #111827; color: white; padding: 5rem 5% 2rem; }
+        .footer-main { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; padding-bottom: 4rem; border-bottom: 1px solid #1F2937; margin-bottom: 2rem; }
+        .footer-logo { font-size: 1.75rem; font-weight: 800; color: #149B8E; margin-bottom: 1.5rem; }
+        .footer-desc { color: #9CA3AF; font-size: 0.875rem; line-height: 1.6; max-width: 300px; }
+        .footer-col h6 { font-size: 1rem; font-weight: 700; margin-bottom: 1.5rem; }
+        .footer-col ul li { margin-bottom: 0.75rem; }
+        .footer-col ul li a { color: #9CA3AF; font-size: 0.875rem; }
+        .footer-col ul li a:hover { color: #149B8E; }
+        .socials { display: flex; gap: 1rem; }
+        .social-box { width: 2.5rem; height: 2.5rem; background: #1F2937; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .social-box:hover { background: #149B8E; }
+        .copyright { text-align: center; color: #4B5563; font-size: 0.75rem; font-style: italic; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .hero { flex-direction: column; text-align: center; }
+            .hero-subtitle { margin: 0 auto 3rem; }
+            .categories, .search-bar { justify-content: center; margin-left: auto; margin-right: auto; }
+            .grid-3 { grid-template-columns: repeat(2, 1fr); }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .cta-banner { flex-direction: column; text-align: center; gap: 3rem; }
+            .cta-btns { justify-content: center; }
+        }
+        @media (max-width: 768px) {
+            .grid-3, .features-grid, .footer-main { grid-template-columns: 1fr; }
+            nav { padding: 1rem 5%; }
+            .nav-menu { display: none; }
+            .hero-title { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-left">
+            <div class="logo">KOSTKU</div>
+            <div class="nav-menu">
+                <a href="cari-kost.html">Cari Kost</a>
+                <a href="about.html">About</a>
+                <a href="blog.html">blog</a>
+               
+            </div>
+        </div>
+        <div class="nav-right">
+            <a href="pusatbantuan.html" class="btn-outline">Pusat Bantuan</a>
+            
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2 class="hero-title">Cari Kost Nyaman,<br>Semudah Pesan Makanan</h2>
+            <p class="hero-subtitle">Tersedia 10.000+ pilihan kamar di dekat Kampus & Perkantoran impianmu</p>
+            
+            <div class="categories">
+                <div class="cat-item">
+                    <div class="cat-icon"><i class="fa fa-user-tie"></i></div>
+                    <span>Kost Putri</span>
+                </div>
+                <div class="cat-item">
+                    <div class="cat-icon"><i class="fa fa-users"></i></div>
+                    <span>Kost Campur</span>
+                </div>
+                <div class="cat-item">
+                    <div class="cat-icon"><i class="fa fa-crown"></i></div>
+                    <span>Eksklusif</span>
+                </div>
+                <div class="cat-item">
+                    <div class="cat-icon"><i class="fa fa-graduation-cap"></i></div>
+                    <span>Dekat Kampus</span>
+                </div>
+            </div>
+
+            <div class="search-bar">
+                <div class="search-field">
+                    <label>Lokasi</label>
+                    <input type="text" placeholder="Nama Kampus/Area">
+                </div>
+                <div class="search-field">
+                    <label>Durasi</label>
+                    <input type="text" placeholder="Bulanan/Tahunan">
+                </div>
+                <button class="btn-search">Cari Sekarang</button>
+            </div>
+        </div>
+
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1000&q=80" alt="Main Room">
+            <div class="badge-hero">Sisa 2 Kamar</div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header">
+            <h3>Rekomendasi Utama</h3>
+            <a href="#">Lihat Semua</a>
+        </div>
+        <div class="grid-3">
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=600&q=80">
+                    <div class="card-tag">POPULER</div>
+                </div>
+                <div class="card-content">
+                    <h4>Kost Anggrek</h4>
+                    <p><i class="fa fa-map-marker-alt"></i> Setiabudi, Jakarta</p>
+                    <div class="card-footer">
+                        <div class="price">Rp 1.500.000<span>/bln</span></div>
+                        <div style="color:#D1D5DB; font-size: 10px;"><i class="fa fa-wifi"></i> <i class="fa fa-snowflake"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=600&q=80">
+                    <div class="card-tag tag-green">DISKON 10%</div>
+                </div>
+                <div class="card-content">
+                    <h4>Green Living</h4>
+                    <p><i class="fa fa-map-marker-alt"></i> Depok, Jawa Barat</p>
+                    <div class="card-footer">
+                        <div class="price">Rp 1.200.000<span>/bln</span></div>
+                        <div style="color:#D1D5DB; font-size: 10px;"><i class="fa fa-bolt"></i> <i class="fa fa-wifi"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://images.unsplash.com/photo-1505691938895-1758d7eaa511?auto=format&fit=crop&w=600&q=80">
+                    <div class="card-tag tag-red">TERLARIS</div>
+                </div>
+                <div class="card-content">
+                    <h4>The Residence</h4>
+                    <p><i class="fa fa-map-marker-alt"></i> Grogol, Jakarta</p>
+                    <div class="card-footer">
+                        <div class="price">Rp 1.500.000<span>/bln</span></div>
+                        <div style="color:#D1D5DB; font-size: 10px;"><i class="fa fa-bed"></i> <i class="fa fa-bath"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="features-grid">
+            <div class="feat-item">
+                <div class="feat-icon"><i class="fa fa-shield-alt"></i></div>
+                <h5>Verified Listing</h5>
+                <p>Semua properti sudah disurvei tim lapangan kami.</p>
+            </div>
+            <div class="feat-item">
+                <div class="feat-icon"><i class="fa fa-credit-card"></i></div>
+                <h5>Seamless Payment</h5>
+                <p>Bayar lewat E-wallet, Transfer atau Kartu Kredit.</p>
+            </div>
+            <div class="feat-item">
+                <div class="feat-icon"><i class="fa fa-tag"></i></div>
+                <h5>No Hidden Fees</h5>
+                <p>Harga yang tertera adalah harga final.</p>
+            </div>
+            <div class="app-download">
+                <div class="app-info">
+                    <h6>Unduh Aplikasi</h6>
+                    <p>KOSTKU</p>
+                </div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" height="30">
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <h3>Apa Kata Mereka?</h3>
+        <p>Ribuan penghuni kost telah menemukan kenyamanan mereka bersama kami.</p>
+        <div class="grid-3">
+            <div class="testi-card">
+                <div class="user-info">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150">
+                    <div>
+                        <h5>Sarah Amanda</h5>
+                        <p>Mahasiswi UGM</p>
+                    </div>
+                </div>
+                <p class="testi-text">"Cari kost jadi jauh lebih gampang! Gambarnya sesuai dengan aslinya, proses pembayarannya transparan banget."</p>
+                <div class="stars"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
+            </div>
+            <div class="testi-card">
+                <div class="user-info">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150">
+                    <div>
+                        <h5>Budi Santoso</h5>
+                        <p>Karyawan Swasta</p>
+                    </div>
+                </div>
+                <p class="testi-text">"Sangat terbantu dengan fitur filter lokasinya. Saya dapat kamar yang cuma 5 menit jalan kaki ke kantor."</p>
+                <div class="stars"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
+            </div>
+            <div class="testi-card">
+                <div class="user-info">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150">
+                    <div>
+                        <h5>Rina Kartika</h5>
+                        <p>Freelancer</p>
+                    </div>
+                </div>
+                <p class="testi-text">"Fitur virtual tour-nya juara. Saya nggak perlu survei langsung ke lokasi tapi sudah tahu persis kondisi kamarnya."</p>
+                <div class="stars"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-alt"></i></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-container">
+        <div class="cta-banner">
+            <div class="cta-content">
+                <h3>Punya Properti Kost?<br>Mari Bergabung Bersama Kami!</h3>
+                <p>Tingkatkan okupansi kost Anda hingga 80% dalam waktu kurang dari 3 bulan dengan sistem manajemen otomatis kami.</p>
+            </div>
+            <div class="cta-btns">
+                <button class="btn-white">Daftarkan Kost Anda</button>
+                <button class="btn-trans">Pelajari Selengkapnya</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-main">
+            <div class="footer-info">
+                <div class="footer-logo">KOSTKU</div>
+                <p class="footer-desc">Membantu mahasiswa dan pekerja menemukan hunian impian dengan transparan dan nyaman.</p>
+            </div>
+            <div class="footer-col">
+                <h6>Layanan</h6>
+                <ul>
+                    <li><a href="#">Cari Kost</a></li>
+                    <li><a href="#">Pusat Bantuan</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h6>Perusahaan</h6>
+                <ul>
+                    <li><a href="#">Tentang Kami</a></li>
+                    <li><a href="#">Karir</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h6>Social Media</h6>
+                <div class="socials">
+                    <a href="#" class="social-box"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-box"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-box"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <p class="copyright">© 2026 KOSTKU. Didesain dengan penuh kenyamanan.</p>
+    </footer>
+
+</body>
+</html>
