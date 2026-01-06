@@ -19,104 +19,164 @@
     font-family: 'Inter', sans-serif; /* Menggunakan font yang bersih mirip di foto */
 }
 
-/* Container Navigasi Utama */
-nav {
-    display: flex;
-    justify-content: space-between;
+<style>
+        /* --- RESET & DASAR --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: white;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo a {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0000FF;
+            text-decoration: none;
+        }
+
+        /* --- MENU DESKTOP --- */
+        .nav-menu { display: flex; gap: 30px; align-items: center; }
+        .nav-menu a { text-decoration: none; color: #444; font-weight: 500; transition: 0.3s; }
+        .nav-menu a:hover { color: #0D9488; }
+
+        .nav-right { display: flex; align-items: center; gap: 15px; }
+
+        /* Tombol Pusat Bantuan */
+        .btn-outline {
+            border: 1.5px solid #0D9488;
+            color: #0D9488;
+            padding: 8px 22px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .btn-outline:hover { background: #0D9488; color: white; }
+
+        /* Tombol Hamburger */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: #333;
+            z-index: 1100;
+            padding: 5px;
+        }
+
+        /* OVERLAY (Latar belakang gelap) */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            z-index: 999;
+        }
+        /* Pastikan container logo punya posisi dan z-index tinggi */
+.logo {
+    position: relative;
+    z-index: 1002; /* Angka tinggi agar tidak tertutup elemen lain */
+    display: flex; /* Menghilangkan gap aneh di bawah gambar */
     align-items: center;
-    padding: 15px 80px; /* Jarak samping yang lebar sesuai foto */
-    background-color: #ffffff;
-    border-bottom: 1px solid #f0f0f0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
 }
 
-/* Bagian Kiri (Logo & Menu) */
-.nav-left {
-    display: flex;
-    align-items: center;
-    gap: 50px; /* Jarak antara logo dan deretan menu */
-}
-
-/* Gaya Logo */
+/* Pastikan Link membungkus gambar sepenuhnya */
 .logo a {
-    font-size: 24px;
-    font-weight: 800;
-    color: #0000FF; /* Warna biru sesuai gambar terakhir */
+    display: block; /* Agar area klik memenuhi gambar */
     text-decoration: none;
-    letter-spacing: -1px;
+    cursor: pointer; /* Memaksa kursor jadi jari telunjuk */
 }
 
-/* Deretan Menu Navigasi */
-.nav-menu {
-    display: flex;
-    gap: 30px;
+/* Atur ukuran gambar di sini, bukan inline di HTML agar lebih rapi */
+.logo img {
+    height: 70px;
+    width: auto; /* Agar rasio gambar tetap terjaga */
+    display: block; /* Menghapus jarak default di bawah gambar */
+    transition: opacity 0.3s;
 }
 
-.nav-menu a {
-    text-decoration: none;
-    color: #4A5568; /* Warna abu-abu gelap yang elegan */
-    font-size: 16px;
-    font-weight: 500;
-    transition: color 0.3s ease;
-    text-transform: capitalize;
+/* Efek saat logo disorot (opsional) */
+.logo a:hover img {
+    opacity: 0.8; 
 }
 
-.nav-menu a:hover {
-    color: #0D9488; /* Warna teal saat di-hover sesuai brand KOSTKU */
-}
+        /* --- RESPONSIF MOBILE --- */
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            
+            /* Sembunyikan tombol bantuan asli di mobile */
+            .nav-right .btn-outline { display: none; }
 
-/* Bagian Kanan (Tombol) */
-.nav-right {
-    display: flex;
-    align-items: center;
-}
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 75%;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                justify-content: center;
+                gap: 25px;
+                padding: 20px;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 1001;
+            }
 
-/* Gaya Tombol Pusat Bantuan (Outline) */
-.btn-outline {
-    text-decoration: none;
-    color: #0D9488;
-    border: 1.5px solid #0D9488;
-    padding: 8px 20px;
-    border-radius: 25px; /* Lonjong sesuai gambar */
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
+            .nav-menu.active { right: 0; }
+            
+            /* Link di mobile jadi lebih besar */
+            .nav-menu a { font-size: 18px; width: 100%; text-align: center; }
 
-.btn-outline:hover {
-    background-color: #0D9488;
-    color: #ffffff;
-}
-
-/* Responsif untuk layar kecil/HP */
-@media (max-width: 768px) {
-    nav {
-        padding: 15px 20px;
-    }
-    .nav-menu {
-        display: none; /* Sembunyikan menu di mobile atau gunakan menu burger */
-    }
-}
+            /* Tampilkan tombol bantuan di dalam menu mobile */
+            .nav-menu .mobile-help {
+                display: block !important;
+                margin-top: 10px;
+            }
+        }
     </style>
 </head>
 <body class="bg-[#F8FAFC] text-slate-800">
 
  
- <nav>
-        <div class="nav-left">
-            <div class="logo"><a href="index.html">KOSTKU</a></div>
-            <div class="nav-menu">
-                <a href="cari-kost.html">Cari Kost</a>
-                <a href="about.html">About</a>
-                <a href="blog.html">blog</a>
-            </div>
+    <nav>
+        <div class="logo">
+    <a href="index.html">
+        <img src="asset/kosttt.webp" alt="kostkita"> 
+    </a>
+</div>
+        <div class="nav-menu" id="nav-menu">
+            <a href="carikost.html">Cari Kost</a>
+            <a href="about.html">About</a>
+            <a href="blog.html">Blog</a>
+
+            <a href="pusatbantuan.html" class="btn-outline mobile-help" style="display: none;">Pusat Bantuan</a>
         </div>
+
         <div class="nav-right">
             <a href="pusatbantuan.html" class="btn-outline">Pusat Bantuan</a>
+
+            <button class="menu-toggle" id="btn-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
+
 
     <main class="max-w-7xl mx-auto px-6 md:px-16 py-10">
         <header class="mb-10 max-w-2xl">
@@ -214,7 +274,42 @@ nav {
     // Jalankan saat pertama kali dibuka
     filterArticles('Semua');
 </script>
+<script>
+        const btnToggle = document.getElementById('btn-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        const overlay = document.getElementById('overlay');
+        const icon = btnToggle.querySelector('i');
 
+        // Fungsi Membuka/Menutup Menu
+        function toggleMenu() {
+            const isOpen = navMenu.classList.toggle('active');
+            
+            if (isOpen) {
+                overlay.style.display = 'block';
+                icon.classList.replace('fa-bars', 'fa-times');
+                document.body.style.overflow = 'hidden'; // Matikan scroll saat menu buka
+            } else {
+                closeMenu();
+            }
+        }
+
+        function closeMenu() {
+            navMenu.classList.remove('active');
+            overlay.style.display = 'none';
+            icon.classList.replace('fa-times', 'fa-bars');
+            document.body.style.overflow = 'auto'; // Aktifkan scroll kembali
+        }
+
+        // Event Listeners
+        btnToggle.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', closeMenu);
+
+        // Tutup menu jika link di dalamnya diklik
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+    </script>
     <style>
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
