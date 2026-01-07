@@ -9,16 +9,8 @@
     <style>
         .filter-shadow { box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
         .active-page { background: #0d9488; color: white; }
+        
         /* Reset Dasar */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', sans-serif; /* Menggunakan font yang bersih mirip di foto */
-}
-
-<style>
-        /* --- RESET & DASAR --- */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
         nav {
@@ -40,14 +32,12 @@
             text-decoration: none;
         }
 
-        /* --- MENU DESKTOP --- */
         .nav-menu { display: flex; gap: 30px; align-items: center; }
         .nav-menu a { text-decoration: none; color: #444; font-weight: 500; transition: 0.3s; }
         .nav-menu a:hover { color: #0D9488; }
 
         .nav-right { display: flex; align-items: center; gap: 15px; }
 
-        /* Tombol Pusat Bantuan */
         .btn-outline {
             border: 1.5px solid #0D9488;
             color: #0D9488;
@@ -62,7 +52,6 @@
 
         .btn-outline:hover { background: #0D9488; color: white; }
 
-        /* Tombol Hamburger */
         .menu-toggle {
             display: none;
             background: none;
@@ -74,7 +63,6 @@
             padding: 5px;
         }
 
-        /* OVERLAY (Latar belakang gelap) */
         .overlay {
             position: fixed;
             top: 0;
@@ -85,38 +73,31 @@
             display: none;
             z-index: 999;
         }
-/* Pastikan container logo punya posisi dan z-index tinggi */
-.logo {
-    position: relative;
-    z-index: 1002; /* Angka tinggi agar tidak tertutup elemen lain */
-    display: flex; /* Menghilangkan gap aneh di bawah gambar */
-    align-items: center;
-}
 
-/* Pastikan Link membungkus gambar sepenuhnya */
-.logo a {
-    display: block; /* Agar area klik memenuhi gambar */
-    text-decoration: none;
-    cursor: pointer; /* Memaksa kursor jadi jari telunjuk */
-}
+        .logo {
+            position: relative;
+            z-index: 1002;
+            display: flex;
+            align-items: center;
+        }
 
-/* Atur ukuran gambar di sini, bukan inline di HTML agar lebih rapi */
-.logo img {
-    height: 70px;
-    width: auto; /* Agar rasio gambar tetap terjaga */
-    display: block; /* Menghapus jarak default di bawah gambar */
-    transition: opacity 0.3s;
-}
+        .logo a {
+            display: block;
+            text-decoration: none;
+            cursor: pointer;
+        }
 
-/* Efek saat logo disorot (opsional) */
-.logo a:hover img {
-    opacity: 0.8; 
-}
-        /* --- RESPONSIF MOBILE --- */
+        .logo img {
+            height: 70px;
+            width: auto;
+            display: block;
+            transition: opacity 0.3s;
+        }
+
+        .logo a:hover img { opacity: 0.8; }
+
         @media (max-width: 768px) {
             .menu-toggle { display: block; }
-            
-            /* Sembunyikan tombol bantuan asli di mobile */
             .nav-right .btn-outline { display: none; }
 
             .nav-menu {
@@ -136,38 +117,94 @@
             }
 
             .nav-menu.active { right: 0; }
-            
-            /* Link di mobile jadi lebih besar */
             .nav-menu a { font-size: 18px; width: 100%; text-align: center; }
-
-            /* Tampilkan tombol bantuan di dalam menu mobile */
             .nav-menu .mobile-help {
                 display: block !important;
                 margin-top: 10px;
             }
         }
+
+        /* --- FOOTER CSS --- */
+        footer {
+            background: #111827;
+            color: white;
+            padding: 5rem 5% 2rem;
+            margin-top: auto; /* Memastikan footer di bawah */
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            padding-bottom: 4rem;
+            border-bottom: 1px solid #1F2937;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #149B8E;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-desc {
+            color: #9CA3AF;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            max-width: 300px;
+        }
+
+        .footer-col h6 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-col ul li { margin-bottom: 0.75rem; }
+        .footer-col ul li a { color: #9CA3AF; font-size: 0.875rem; }
+        .footer-col ul li a:hover { color: #149B8E; }
+
+        .socials { display: flex; gap: 1rem; }
+        .social-box {
+            width: 2.5rem; height: 2.5rem;
+            background: #1F2937;
+            border-radius: 0.75rem;
+            display: flex; align-items: center; justify-content: center;
+            transition: 0.3s;
+        }
+        .social-box:hover { background: #149B8E; }
+
+        .copyright {
+            text-align: center;
+            color: #4B5563;
+            font-size: 0.75rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 1024px) {
+            .footer-main { grid-template-columns: 1fr; gap: 2rem; }
+        }
     </style>
 </head>
-<body class="bg-slate-50 font-sans text-slate-800">
+<body class="bg-slate-50 font-sans text-slate-800 flex flex-col min-h-screen">
 
    <nav>
         <div class="logo">
-    <a href="index.html">
-        <img src="asset/kosttt.webp" alt="kostkita"> 
-    </a>
-</div>
+            <a href="index.html">
+                <img src="asset/kosttt.webp" alt="kostkita"> 
+            </a>
+        </div>
 
         <div class="nav-menu" id="nav-menu">
             <a href="carikost.html">Cari Kost</a>
             <a href="about.html">About</a>
             <a href="blog.html">Blog</a>
-
             <a href="pusatbantuan.html" class="btn-outline mobile-help" style="display: none;">Pusat Bantuan</a>
         </div>
 
         <div class="nav-right">
             <a href="pusatbantuan.html" class="btn-outline">Pusat Bantuan</a>
-
             <button class="menu-toggle" id="btn-toggle">
                 <i class="fas fa-bars"></i>
             </button>
@@ -184,7 +221,7 @@
         </div>
     </header>
 
-    <main class="py-10 px-6 md:px-16 max-w-7xl mx-auto flex flex-col lg:flex-row gap-10">
+    <main class="flex-grow w-full py-10 px-6 md:px-16 max-w-7xl mx-auto flex flex-col lg:flex-row gap-10">
         <aside class="lg:w-1/4">
             <div class="bg-white rounded-3xl p-6 filter-shadow sticky top-24 border border-slate-100">
                 <h4 class="font-bold text-lg mb-6">Filter Properti</h4>
@@ -225,8 +262,40 @@
             <div id="kostGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"></div>
             <div id="pagination" class="flex justify-center mt-12 space-x-2"></div>
         </div>
-    </main>
-<script>
+        
+    </main> 
+    <footer>
+        <div class="footer-main">
+            <div class="footer-info">
+                <div class="footer-logo">KOSTKU</div>
+                <p class="footer-desc">Membantu mahasiswa dan pekerja menemukan hunian impian dengan transparan dan nyaman.</p>
+            </div>
+            <div class="footer-col">
+                <h6>Layanan</h6>
+                <ul>
+                    <li><a href="carikost.html">Cari Kost</a></li>
+                    <li><a href="pusatbantuan.html">Pusat Bantuan</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h6>Perusahaan</h6>
+                <ul>
+                    <li><a href="about.html">Tentang Kami</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h6>Social Media</h6>
+                <div class="socials">
+                    <a href="#" class="social-box"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-box"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-box"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <p class="copyright">© 2026 KOSTKU. Didesain dengan penuh kenyamanan.</p>
+    </footer>
+
+    <script>
         const btnToggle = document.getElementById('btn-toggle');
         const navMenu = document.getElementById('nav-menu');
         const overlay = document.getElementById('overlay');
@@ -327,46 +396,21 @@
             window.location.href = `kostdetail.html?id=${id}`;
         }
 
-        render();
-    </script>
-    <script>
-    // ... (Data allKost dan fungsi render tetap sama seperti sebelumnya)
+        // --- LOGIKA PENANGKAPAN LOKASI DARI INDEX ---
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const lokasiDiterima = urlParams.get('lokasi');
 
-// FUNGSI UTAMA UNTUK FILTER
-function applyFilters() {
-    const keyword = document.getElementById('keywordInput').value.toLowerCase();
-    const type = document.getElementById('typeFilter').value;
-    const maxPrice = parseInt(document.getElementById('priceFilter').value);
-
-    filteredData = allKost.filter(k => {
-        return (k.nama.toLowerCase().includes(keyword) || k.lokasi.toLowerCase().includes(keyword)) &&
-               (type === 'all' || k.tipe === type) &&
-               (k.harga <= maxPrice);
-    });
-    currentPage = 1;
-    render();
-}
-
-// LOGIKA PENANGKAPAN DATA DARI INDEX (URL PARAMETER)
-window.onload = function() {
-    // 1. Ambil parameter 'lokasi' dari URL (misal: ?lokasi=Jakarta)
-    const urlParams = new URLSearchParams(window.location.search);
-    const lokasiDiterima = urlParams.get('lokasi');
-
-    if (lokasiDiterima) {
-        const keywordInput = document.getElementById('keywordInput');
-        if (keywordInput) {
-            // 2. Masukkan teks lokasi ke kolom input pencarian
-            keywordInput.value = lokasiDiterima;
-            
-            // 3. Jalankan fungsi filter agar daftar langsung tersaring otomatis
-            applyFilters();
-        }
-    } else {
-        // Jika tidak ada parameter di URL, tampilkan semua data secara normal
-        render();
-    }
-};
+            if (lokasiDiterima) {
+                const keywordInput = document.getElementById('keywordInput');
+                if (keywordInput) {
+                    keywordInput.value = lokasiDiterima;
+                    applyFilters();
+                }
+            } else {
+                render();
+            }
+        };
     </script>
 </body>
 </html>

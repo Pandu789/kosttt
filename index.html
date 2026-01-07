@@ -1003,6 +1003,65 @@
         grid-template-columns: 1fr;
     }
 }
+/* Container di pojok kanan bawah */
+.floating-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999; /* Agar selalu di paling depan */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Gaya Umum Tombol */
+.btn-float {
+    width: 50px;
+    height: 50px;
+    background-color: #25D366; /* Warna Default (WA) */
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px; /* Agar ikon pas di tengah */
+    font-size: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-float:hover {
+    transform: translateY(-5px);
+}
+
+/* Khusus Tombol Top (Warna Teal) */
+.btn-top {
+    background-color: #0D9488;
+    
+    /* Logika Sembunyi/Muncul */
+    opacity: 0;           /* Transparan */
+    visibility: hidden;   /* Tidak bisa diklik */
+    transform: translateY(20px); /* Turun sedikit */
+    transition: all 0.3s ease;
+}
+
+/* Kelas ini ditambahkan oleh Javascript saat scroll */
+.btn-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0); /* Kembali ke posisi semula */
+}
+
+/* Animasi Denyut WA */
+.btn-wa {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -1043,7 +1102,7 @@
            
            <div class="search-bar">
     <div class="search-field">
-        <label>Lokasi</label>
+        
         <select id="city-dropdown" class="select-location">
             <option value="all" selected>Semua Kota</option>
             <option value="Jakarta">Jakarta</option>
@@ -1064,6 +1123,7 @@
         window.location.href = `carikost.html?lokasi=${city}`;
     }
 </script>
+
         </div>
 
         <div class="hero-image">
@@ -1072,63 +1132,94 @@
             <div class="badge-hero">Sisa 2 Kamar</div>
         </div>
     </section>
+    <div class="floating-container">
+    <a href="#" class="btn-float btn-top" id="btnBackToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    <a href="https://wa.me/6281234567890" target="_blank" class="btn-float btn-wa">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</div>
 
-    <section class="section">
-        <div class="section-header">
-            <h3>Rekomendasi Utama</h3>
-           
-        </div>
-        <div class="grid-3">
-            <div class="card">
-                <div class="card-img">
-                    <img
-                        src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=600&q=80">
-                    <div class="card-tag">POPULER</div>
-                </div>
-                <div class="card-content">
-                    <h4>Kost Anggrek</h4>
-                    <p><i class="fa fa-map-marker-alt"></i> Setiabudi, Jakarta</p>
-                    <div class="card-footer">
-                        <div class="price">Rp 1.500.000<span>/bln</span></div>
-                        <div style="color:#D1D5DB; font-size: 10px;"><i class="fa fa-wifi"></i> <i
-                                class="fa fa-snowflake"></i></div>
+<script>
+    const btnTop = document.getElementById('btnBackToTop');
+
+    window.addEventListener('scroll', () => {
+        // Cek posisi scroll
+        // Jika scroll lebih dari 100px, tambahkan kelas 'show'
+        if (window.scrollY > 100) {
+            btnTop.classList.add('show');
+        } else {
+            btnTop.classList.remove('show');
+        }
+    });
+
+    // Klik untuk ke atas
+    btnTop.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
+
+   <section class="section">
+    <div class="section-header">
+        <h3>Rekomendasi Utama</h3>
+    </div>
+    <div class="grid-3">
+        
+        <a href="cari-kost.html" class="card">
+            <div class="card-img">
+                <img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=600&q=80">
+                <div class="card-tag">POPULER</div>
+            </div>
+            <div class="card-content">
+                <h4>Kost Anggrek</h4>
+                <p><i class="fa fa-map-marker-alt"></i> Setiabudi, Jakarta</p>
+                <div class="card-footer">
+                    <div class="price">Rp 1.500.000<span>/bln</span></div>
+                    <div style="color:#D1D5DB; font-size: 10px;">
+                        <i class="fa fa-wifi"></i> <i class="fa fa-snowflake"></i>
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-img">
-                    <img
-                        src="asset/1.webp">
-                    <div class="card-tag tag-green">DISKON 10%</div>
-                </div>
-                <div class="card-content">
-                    <h4>Green Living</h4>
-                    <p><i class="fa fa-map-marker-alt"></i> Depok, Jawa Barat</p>
-                    <div class="card-footer">
-                        <div class="price">Rp 1.200.000<span>/bln</span></div>
-                        <div style="color:#D1D5DB; font-size: 10px;"><i class="fa fa-bolt"></i> <i
-                                class="fa fa-wifi"></i></div>
+        </a>
+
+        <a href="cari-kost.html" class="card">
+            <div class="card-img">
+                <img src="asset/1.webp">
+                <div class="card-tag tag-green">DISKON 10%</div>
+            </div>
+            <div class="card-content">
+                <h4>Green Living</h4>
+                <p><i class="fa fa-map-marker-alt"></i> Depok, Jawa Barat</p>
+                <div class="card-footer">
+                    <div class="price">Rp 1.200.000<span>/bln</span></div>
+                    <div style="color:#D1D5DB; font-size: 10px;">
+                        <i class="fa fa-bolt"></i> <i class="fa fa-wifi"></i>
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-img">
-                    <img
-                        src="asset/2.webp">
-                    <div class="card-tag tag-red">TERLARIS</div>
-                </div>
-                <div class="card-content">
-                    <h4>The Residence</h4>
-                    <p><i class="fa fa-map-marker-alt"></i> Grogol, Jakarta</p>
-                    <div class="card-footer">
-                        <div class="price">Rp 1.500.000<span>/bln</span></div>
-                        <div style="color:#D1D5DB; font-size: 10px;"><i class="fa fa-bed"></i> <i
-                                class="fa fa-bath"></i></div>
+        </a>
+
+        <a href="cari-kost.html" class="card">
+            <div class="card-img">
+                <img src="asset/2.webp">
+                <div class="card-tag tag-red">TERLARIS</div>
+            </div>
+            <div class="card-content">
+                <h4>The Residence</h4>
+                <p><i class="fa fa-map-marker-alt"></i> Grogol, Jakarta</p>
+                <div class="card-footer">
+                    <div class="price">Rp 1.500.000<span>/bln</span></div>
+                    <div style="color:#D1D5DB; font-size: 10px;">
+                        <i class="fa fa-bed"></i> <i class="fa fa-bath"></i>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </a>
+
+    </div>
+</section>
 <section class="features-section">
     <div class="features-grid">
         <div class="feat-item">

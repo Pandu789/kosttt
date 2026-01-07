@@ -147,6 +147,139 @@
                 margin-top: 10px;
             }
         }
+          /* --- FOOTER --- */
+        footer {
+            background: #111827;
+            color: white;
+            padding: 5rem 5% 2rem;
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            padding-bottom: 4rem;
+            border-bottom: 1px solid #1F2937;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #149B8E;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-desc {
+            color: #9CA3AF;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            max-width: 300px;
+        }
+
+        .footer-col h6 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-col ul li a {
+            color: #9CA3AF;
+            font-size: 0.875rem;
+        }
+
+        .footer-col ul li a:hover {
+            color: #149B8E;
+        }
+
+        .socials {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-box {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: #1F2937;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+
+        .social-box:hover {
+            background: #149B8E;
+        }
+
+        .copyright {
+            text-align: center;
+            color: #4B5563;
+            font-size: 0.75rem;
+            font-style: italic;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-subtitle {
+                margin: 0 auto 3rem;
+            }
+
+            .categories,
+            .search-bar {
+                justify-content: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cta-banner {
+                flex-direction: column;
+                text-align: center;
+                gap: 3rem;
+            }
+
+            .cta-btns {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .grid-3,
+            .features-grid,
+            .footer-main {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                padding: 1rem 5%;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+        }
     </style>
 </head>
 <body class="bg-[#F8FAFC]">
@@ -243,21 +376,39 @@
         </div>
     </section>
 
-    <footer class="bg-slate-800 text-white py-12 px-6 md:px-16">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-            <h2 class="text-2xl font-bold tracking-tight">KOSTKU</h2>
-            <div class="flex space-x-8 text-sm font-medium text-slate-400">
-                <a href="#" class="hover:text-white">Tentang Kami</a>
-                <a href="#" class="hover:text-white">Karir</a>
-                <a href="#" class="hover:text-white">Blog</a>
+    <footer>
+        <div class="footer-main">
+            <div class="footer-info">
+                <div class="footer-logo">KOSTKU</div>
+                <p class="footer-desc">Membantu mahasiswa dan pekerja menemukan hunian impian dengan transparan dan
+                    nyaman.</p>
             </div>
-            <div class="flex space-x-5">
-                <i class="fab fa-facebook text-xl cursor-pointer hover:text-teal-400"></i>
-                <i class="fab fa-instagram text-xl cursor-pointer hover:text-teal-400"></i>
-                <i class="fab fa-twitter text-xl cursor-pointer hover:text-teal-400"></i>
+            <div class="footer-col">
+                <h6>Layanan</h6>
+                <ul>
+                    <li><a href="carikost.html">Cari Kost</a></li>
+                    <li><a href="pusatbantuan.html">Pusat Bantuan</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h6>Perusahaan</h6>
+                <ul>
+                    <li><a href="about.html">Tentang Kami</a></li>
+                   
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h6>Social Media</h6>
+                <div class="socials">
+                    <a href="#" class="social-box"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-box"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-box"><i class="fab fa-twitter"></i></a>
+                </div>
             </div>
         </div>
+        <p class="copyright">© 2026 KOSTKU. Didesain dengan penuh kenyamanan.</p>
     </footer>
+
 <script>
         const btnToggle = document.getElementById('btn-toggle');
         const navMenu = document.getElementById('nav-menu');
